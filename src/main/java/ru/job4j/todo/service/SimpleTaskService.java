@@ -1,6 +1,7 @@
 package ru.job4j.todo.service;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.store.task.TaskStore;
@@ -11,40 +12,41 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleTaskService implements TaskService {
+    private final SessionFactory sf;
     private final TaskStore taskStore;
 
     @Override
     public Task create(Task task) {
-        return null;
+        return taskStore.create(task);
     }
 
     @Override
     public Optional<Task> findById(int id) {
-        return Optional.empty();
+        return taskStore.findById(id);
     }
 
     @Override
     public List<Task> findAll() {
-        return List.of();
+        return taskStore.findAll();
     }
 
     @Override
     public List<Task> findCompleted() {
-        return List.of();
+        return taskStore.findCompleted();
     }
 
     @Override
     public List<Task> findNew() {
-        return List.of();
+        return taskStore.findNew();
     }
 
     @Override
     public boolean update(Task task) {
-        return false;
+        return taskStore.update(task);
     }
 
     @Override
     public void deleteById(int id) {
-
+        taskStore.deleteById(id);
     }
 }
