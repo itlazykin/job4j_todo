@@ -111,14 +111,13 @@ public class HbnTaskStore implements TaskStore {
         try {
             session.beginTransaction();
             Query query = session.createQuery("""
-                    UPDATE Task
-                    SET title = :title, description = :description, created = :created, done = :done
-                    WHERE id = :id
-                    """)
+                            UPDATE Task
+                            SET title = :title, description = :description, done = :done
+                            WHERE id = :id
+                            """)
                     .setParameter("id", task.getId())
                     .setParameter("title", task.getTitle())
                     .setParameter("description", task.getDescription())
-                    .setParameter("created", task.getCreated())
                     .setParameter("done", task.isDone());
             result = query.executeUpdate() > 0;
             session.getTransaction().commit();
@@ -139,6 +138,30 @@ public class HbnTaskStore implements TaskStore {
             session.beginTransaction();
             Query query = session.createQuery("DELETE Task WHERE id = :id")
                     .setParameter("id", id);
+            result = query.executeUpdate() > 0;
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean completedTask(int id) {
+        var session = sf.openSession();
+        boolean result = false;
+        try {
+            session.beginTransaction();
+            Query query = session.createQuery("""
+                            UPDATE Task
+                            SET done = :done
+                            WHERE id = :id
+                            """)
+                    .setParameter("id", id)
+                    .setParameter("done", true);
             result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {

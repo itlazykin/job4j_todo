@@ -48,4 +48,9 @@ public class SimpleTaskService implements TaskService {
     public boolean deleteById(int id) {
        return taskStore.deleteById(id);
     }
+
+    @Override
+    public boolean completedTask(int id) {
+        return taskStore.completedTask(id);
+    }
 }

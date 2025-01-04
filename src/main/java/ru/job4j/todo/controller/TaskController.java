@@ -52,22 +52,28 @@ public class TaskController {
             return "error/404";
         }
         model.addAttribute("task", taskOptional.get());
+        return "tasks/description";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(Model model, @PathVariable int id) {
+        Optional<Task> taskOptional = taskService.findById(id);
+        if (taskOptional.isEmpty()) {
+            model.addAttribute("message", "Задача не найдена");
+            return "error/404";
+        }
+        model.addAttribute("task", taskOptional.get());
         return "tasks/updated";
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute Task task, Model model) {
-        try {
-            var result = taskService.update(task);
-            if (!result) {
-                model.addAttribute("message", "Задачу не удалось обновить");
-                return "error/404";
-            }
-            return "redirect:/tasks";
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
+        var result = taskService.update(task);
+        if (!result) {
+            model.addAttribute("message", "Задачу не удалось обновить");
             return "error/404";
         }
+        return "redirect:/tasks";
     }
 
     @GetMapping("/delete/{id}")
@@ -75,6 +81,16 @@ public class TaskController {
         boolean result = taskService.deleteById(id);
         if (!result) {
             model.addAttribute("message", "Задача с указанным идентификатором не найдена");
+            return "error/404";
+        }
+        return "redirect:/tasks";
+    }
+
+    @GetMapping("/completed/{id}")
+    public String completed(Model model, @PathVariable int id) {
+        boolean result = taskService.completedTask(id);
+        if (!result) {
+            model.addAttribute("message", "Задача не переведена в состояние Выполнено");
             return "error/404";
         }
         return "redirect:/tasks";
