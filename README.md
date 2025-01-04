@@ -52,24 +52,24 @@ mvn spring-boot:run
 
 1. Стартовая страница
 
-![Стартовая страница](src\main\resources\templates\images\started.png)
+![Стартовая страница](src/main/resources/templates/images/started.png)
 
 2. Все задачи
 
-![Все задачи](src\main\resources\templates\images\all.png)
+![Все задачи](src/main/resources/templates/images/all.png)
 
 3. Только выполненные
 
-![Только выполненные](src\main\resources\templates\images\complete.png)
+![Только выполненные](src/main/resources/templates/images/complete.png)
 
 4. Только новые
 
-![Только новые](src\main\resources\templates\images\new.png)
+![Только новые](src/main/resources/templates/images/new.png)
 
 5. Добавление задачи
 
-![Добавление задачи](src\main\resources\templates\images\addtask.png)
+![Добавление задачи](src/main/resources/templates/images/addtask.png)
 
 6. Обновление задачи
 
-![Обновление задачи](src\main\resources\templates\images\editTask.png)
+![Обновление задачи](src/main/resources/templates/images/editTask.png)
