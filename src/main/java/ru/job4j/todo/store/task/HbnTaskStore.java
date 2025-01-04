@@ -26,8 +26,8 @@ public class HbnTaskStore implements TaskStore {
             session.save(task);
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
             logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
@@ -40,13 +40,13 @@ public class HbnTaskStore implements TaskStore {
         Optional<Task> result = Optional.empty();
         try {
             session.beginTransaction();
-            result = session.createQuery("FROM Task WHERE id = :Id", Task.class)
+            result = session.createQuery("FROM Task WHERE id = :id", Task.class)
                     .setParameter("id", id)
                     .uniqueResultOptional();
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
             logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
@@ -62,8 +62,8 @@ public class HbnTaskStore implements TaskStore {
             result = session.createQuery("FROM Task", Task.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
             logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
@@ -79,8 +79,8 @@ public class HbnTaskStore implements TaskStore {
             result = session.createQuery("FROM Task WHERE done = true", Task.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
             logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
@@ -96,8 +96,8 @@ public class HbnTaskStore implements TaskStore {
             result = session.createQuery("FROM Task WHERE done = false", Task.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
             logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
@@ -106,24 +106,25 @@ public class HbnTaskStore implements TaskStore {
 
     @Override
     public boolean update(Task task) {
-        boolean result = false;
         var session = sf.openSession();
+        boolean result = false;
         try {
             session.beginTransaction();
-            Query<Task> query = session.createQuery("""
-                            UPDATE Task
-                            SET title = :title, description = :description, done = :done
-                            WHERE id = :id
-                            """, Task.class)
+            Query query = session.createQuery("""
+                    UPDATE Task
+                    SET title = :title, description = :description, created = :created, done = :done
+                    WHERE id = :id
+                    """)
                     .setParameter("id", task.getId())
                     .setParameter("title", task.getTitle())
                     .setParameter("description", task.getDescription())
+                    .setParameter("created", task.getCreated())
                     .setParameter("done", task.isDone());
             result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
             logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
@@ -131,19 +132,21 @@ public class HbnTaskStore implements TaskStore {
     }
 
     @Override
-    public void deleteById(int id) {
+    public boolean deleteById(int id) {
+        boolean result = false;
         var session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createQuery("DELETE Task WHERE id = id")
-                    .setParameter("id", id)
-                    .executeUpdate();
+            Query query = session.createQuery("DELETE Task WHERE id = :id")
+                    .setParameter("id", id);
+            result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
             logger.error(e.getMessage(), e);
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
+        return result;
     }
 }

@@ -18,5 +18,5 @@ public interface TaskStore {
 
     boolean update(Task task);
 
-    void deleteById(int id);
+    boolean deleteById(int id);
 }

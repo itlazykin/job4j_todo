@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleTaskService implements TaskService {
-    private final SessionFactory sf;
     private final TaskStore taskStore;
 
     @Override
@@ -46,7 +45,7 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public void deleteById(int id) {
-        taskStore.deleteById(id);
+    public boolean deleteById(int id) {
+       return taskStore.deleteById(id);
     }
 }
