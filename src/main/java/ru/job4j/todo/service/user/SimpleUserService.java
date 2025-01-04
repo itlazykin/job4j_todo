@@ -1,4 +1,4 @@
-package ru.job4j.todo.service;
+package ru.job4j.todo.service.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
