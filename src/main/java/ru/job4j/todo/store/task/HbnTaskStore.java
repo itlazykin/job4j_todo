@@ -112,13 +112,12 @@ public class HbnTaskStore implements TaskStore {
             session.beginTransaction();
             Query query = session.createQuery("""
                             UPDATE Task
-                            SET title = :title, description = :description, done = :done
+                            SET title = :title, description = :description
                             WHERE id = :id
                             """)
                     .setParameter("id", task.getId())
                     .setParameter("title", task.getTitle())
-                    .setParameter("description", task.getDescription())
-                    .setParameter("done", task.isDone());
+                    .setParameter("description", task.getDescription());
             result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
