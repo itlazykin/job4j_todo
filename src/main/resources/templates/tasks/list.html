@@ -19,16 +19,17 @@
     <header th:insert="blocks/header :: header"></header>
     <div class="container">
         <div class="nav-item nav-link active">
-            <a class="btn btn-danger w-25" th:href="@{/tasks/created}">Добавить задачу</a>
+            <a class="btn btn-danger w-10" th:href="@{/tasks/created}">Добавить задачу</a>
         </div>
         <div class="row">
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Имя</th>
+                    <th scope="col">Название задачи</th>
                     <th scope="col">Имя пользователя</th>
                     <th scope="col">Дата создания</th>
-                    <th scope="col">Статус</th>
+                    <th scope="col">Статус задачи</th>
+                    <th scope="col">Приоритет задачи</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,7 @@
                             <i class="bi bi-square">В работе</i>
                         </span>
                     </td>
+                    <td th:text="${task.priority.position}"/>
                 </tr>
                 </tbody>
             </table>
