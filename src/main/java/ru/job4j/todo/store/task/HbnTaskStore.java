@@ -41,17 +41,26 @@ public class HbnTaskStore implements TaskStore {
 
     @Override
     public List<Task> findAll() {
-        return crudStore.query("FROM Task f JOIN FETCH f.priority", Task.class);
+        return crudStore.query(
+                "FROM Task f JOIN FETCH f.priority LEFT JOIN FETCH f.categories",
+                Task.class
+        );
     }
 
     @Override
     public List<Task> findCompleted() {
-        return crudStore.query("FROM Task f JOIN FETCH f.priority WHERE done = true", Task.class);
+        return crudStore.query(
+                "FROM Task f JOIN FETCH f.priority LEFT JOIN FETCH f.categories WHERE done = true",
+                Task.class
+        );
     }
 
     @Override
     public List<Task> findNew() {
-        return crudStore.query("FROM Task f JOIN FETCH f.priority WHERE done = false", Task.class);
+        return crudStore.query(
+                "FROM Task f JOIN FETCH f.priority LEFT JOIN FETCH f.categories WHERE done = false",
+                Task.class
+        );
     }
 
     @Override
@@ -64,7 +73,8 @@ public class HbnTaskStore implements TaskStore {
 
     @Override
     public boolean deleteById(int id) {
-        return crudStore.query("DELETE Task WHERE id = :fId", Map.of("fId", id));
+        return crudStore.query("DELETE Task WHERE id = :fId",
+                Map.of("fId", id));
     }
 
     @Override
