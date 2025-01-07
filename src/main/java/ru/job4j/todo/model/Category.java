@@ -21,6 +21,4 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @ManyToMany(mappedBy = "categories")
-    private List<Task> tasks = new ArrayList<>();
 }
