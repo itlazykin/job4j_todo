@@ -24,11 +24,6 @@
                         <input type="text" class="form-control" id="title" name="title" th:field="*{title}"
                                placeholder="Введите название задачи">
                     </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" name="done" class="form-check-input" id="done"
-                               th:field="*{done}">
-                        <label class="form-check-label" for="done">Нажмите, если хотите перевести статус задачи в состояние Готово</label>
-                    </div>
                 </div>
             </div>
             <div class="mb-3">
@@ -55,7 +50,7 @@
                 <div class="col-6">
                     <div class="row">
                         <div class="col-4">
-                            <a class="btn btn-light w-100" th:href="@{/tasks}">Отмена</a>
+                            <a class="btn btn-warning w-100" th:href="@{/tasks}">Отмена</a>
                         </div>
                         <div class="col-4">
                             <a class="btn btn-danger w-100" th:href="@{/tasks/delete/{id}(id=${task.id})}">Удалить</a>

@@ -1,21 +1,31 @@
 <div th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <nav class="navbar navbar-expand-lg btn btn-success">
         <div class="container">
-            <a class="navbar-brand" href="/">Job4j ToDo</a>
+            <a class="navbar-brand text-light" href="/">Job4j ToDo</a>
             <div class="collapse navbar-collapse">
 
                 <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link active" th:href="@{/tasks}">Все</a>
-                    <a class="nav-item nav-link active" th:href="@{/tasks/completed}">Выполненные</a>
-                    <a class="nav-item nav-link active" th:href="@{/tasks/new}">Новые</a>
+                    <div class="navbar-nav me-auto">
+                        <a class="nav-item nav-link active text-light" th:href="@{/tasks}">
+                            <i class="fas fa-tasks"></i> Все
+                        </a>
+                        <a class="nav-item nav-link active text-light" th:href="@{/tasks/completed}">
+                            <i class="fas fa-check-circle"></i> Выполненные
+                        </a>
+                        <a class="nav-item nav-link active text-light" th:href="@{/tasks/new}">
+                            <i class="fas fa-plus-circle"></i> Новые
+                        </a>
+                    </div>
+
                 </div>
                 <div class="d-flex" th:if="${user.name == 'Гость'}">
-                    <a class="nav-link text-secondary me-3" th:href="@{/users/register}">Регистрация</a>
+                    <a class="nav-link text-light me-3" th:href="@{/users/register}">Регистрация</a>
                     <a class="nav-link text-light" th:href="@{/users/login}">Войти</a>
                 </div>
                 <div class="d-flex" th:if="${user.name != 'Гость'}">
-                    <a class="nav-link text-secondary me-3" href="#" th:text="${user.name}"></a>
-                    <a class="nav-link text-secondary" th:href="@{/users/logout}">Выйти</a>
+                    <a class="nav-link text-light me-3" href="#" th:text="${user.name}"></a>
+                    <a class="nav-link text-light" th:href="@{/users/logout}">Выйти</a>
                 </div>
             </div>
         </div>
