@@ -39,17 +39,20 @@
             }
         }
     </style>
-    <title>Tasks</title>
+    <title>Задачи</title>
 </head>
 <body>
 <div class="container-fluid p-0">
+
     <header th:insert="blocks/header :: header"></header>
-    <div class="container">
-        <a class="btn btn-centered" th:href="@{/tasks/created}">
+
+    <main class="container mt-4">
+        <a class="btn btn-centered mb-4" th:href="@{/tasks/created}">
             Добавить задачу
         </a>
+
         <div class="row mt-3">
-            <table class="table">
+            <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Название задачи</th>
@@ -61,18 +64,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="task: ${tasks}">
-                    <td><a th:text="${task.title}" th:href="@{/tasks/{taskId}(taskId=${task.id})}"></a>
-                    </td>
+                <tr th:each="task : ${tasks}">
+                    <td><a th:text="${task.title}" th:href="@{/tasks/{taskId}(taskId=${task.id})}"></a></td>
                     <td th:text="${task.user.name}"></td>
                     <td th:text="${task.created}"></td>
                     <td>
-                        <span th:if="${task.done}">
-                            <i class="bi bi-check-square">Готово</i>
-                         </span>
+                            <span th:if="${task.done}">
+                                <i class="bi bi-check-square"> Готово</i>
+                            </span>
                         <span th:if="${!task.done}">
-                            <i class="bi bi-square">В работе</i>
-                        </span>
+                                <i class="bi bi-square"> В работе</i>
+                            </span>
                     </td>
                     <td th:text="${task.priority.position}"></td>
                     <td th:each="category : ${task.categories}" th:text="${category.name}"></td>
@@ -80,8 +82,9 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <footer th:insert="~{blocks/footer :: footer}"></footer>
+    </main>
+
+    <footer th:insert="~{blocks/footer :: footer}" class="mt-4"></footer>
 </div>
 </body>
 </html>
