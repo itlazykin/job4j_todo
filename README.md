@@ -73,3 +73,8 @@ mvn spring-boot:run
 6. Обновление задачи
 
 ![Обновление задачи](src/main/resources/templates/images/editTask.png)
+
+#### Контакты для связи:
+* Лазыкин Денис Андреевич;
+* +7 926 888 23 28;
+* dlazykin856@gmail.com
